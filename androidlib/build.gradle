@@ -18,6 +18,14 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        shrunk {
+            minifyEnabled true
+            shrinkResources true
+        }
+        big {
+            minifyEnabled false
+            shrinkResources false
+        }
     }
 }
 
@@ -28,17 +36,19 @@ dependencies {
     })
 
 
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
 
     compile project(path: ':backend', configuration: 'android-endpoints')
 
     compile project(":jokejavalib")
 
+
+
+    compile 'com.android.support:appcompat-v7:25.3.1'
+
     compile 'com.google.android.gms:play-services-ads:11.0.1'
 
-    compile 'com.google.apis:google-api-services-discovery:v1-rev59-1.22.0'
+    compile 'com.android.support:support-v4:25.3.1'
 
-    compile 'com.google.http-client:google-http-client-android:1.22.0'
+    testCompile 'junit:junit:4.12'
+
 }

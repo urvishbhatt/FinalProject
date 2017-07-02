@@ -6,6 +6,7 @@
 
 package com.example.bhatt.myapplication.backend;
 
+import com.example.MyClass;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
@@ -34,10 +35,8 @@ public class MyEndpoint {
 
         MyBean response = new MyBean();
 
-        JokesList jokesList = new JokesList();
-
-        String joke = jokesList.getJoke();
-
+        MyClass myClass = new MyClass();
+        String joke = myClass.getJoke();
 
         response.setData(joke);
 

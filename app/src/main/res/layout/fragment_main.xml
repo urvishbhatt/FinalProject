@@ -11,6 +11,12 @@
     tools:context=".MainActivityFragment"
     >
 
+    <ProgressBar
+        android:id="@+id/jokeprogressbar1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
     <TextView
         android:id="@+id/instructions_text_view"
         android:layout_width="wrap_content"
