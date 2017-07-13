@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -27,37 +28,47 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
 
-    private ProgressBar progressBar;
-    private String joke;
+    public static ProgressBar progressBar;
+    private static String joke;
     private Intent intent;
+    public static Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        button = (Button)findViewById(R.id.telljokebutton);
         progressBar = (ProgressBar)findViewById(R.id.jokeprogressbar1);
 
-        progressBar.setVisibility(View.INVISIBLE);
-
-    }
-
-    public void tellJoke(View view) {
-
-        intent = new Intent(this, JokeActivity.class);
-
         progressBar.setVisibility(View.VISIBLE);
+        button.setEnabled(false);
 
         new EndpointsAsyncTask().execute(new Pair<Context, String>(this,"null"));
 
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                intent = new Intent(MainActivity.this, JokeActivity.class);
+
+                intent.putExtra("joke",joke);
+
+                startActivity(intent);
+            }
+        });
+
     }
 
 
-    class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
+    static class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
 
         private MyApi myApiService = null;
         private Context context;
+
+
 
 
         @Override
@@ -100,17 +111,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
 
-            progressBar.setVisibility(View.GONE);
-
             joke = result;
 
-            intent.putExtra("joke",joke);
+            progressBar.setVisibility(View.GONE);
 
-            startActivity(intent);
-
+            button.setEnabled(true);
         }
-
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
